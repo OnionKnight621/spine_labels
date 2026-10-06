@@ -1,0 +1,126 @@
+/* Custom properties (--w, --font, ...) are set by applyCssVars() in app.js */
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font: 14px/1.4 system-ui, sans-serif;
+  background: #e9ecef;
+  color: #222;
+}
+
+.app {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  min-height: 100vh;
+}
+
+.panel {
+  position: sticky;
+  top: 0;
+  max-height: 100vh;
+  overflow-y: auto;
+  padding: 16px;
+  background: #fff;
+  border-right: 1px solid #ccc;
+}
+
+.panel h1 { margin: 0 0 8px; font-size: 20px; }
+
+.panel h2 {
+  margin: 18px 0 6px;
+  font-size: 13px;
+  text-transform: uppercase;
+  color: #666;
+}
+
+.panel label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  margin: 4px 0;
+}
+
+.panel input[type=number] { width: 70px; }
+.panel textarea { width: 100%; height: 160px; font: inherit; }
+
+.row { display: flex; gap: 6px; flex-wrap: wrap; }
+button { cursor: pointer; padding: 4px 10px; }
+.print-btn { width: 100%; padding: 10px; font-size: 16px; margin-top: 16px; }
+.info { color: #666; font-size: 12px; }
+.error { color: #b00020; }
+
+.preview { padding: 20px; overflow: auto; }
+
+/* Page margins live here as padding; @page margin is 0 so print matches preview */
+.sheet {
+  width: 210mm;
+  height: 297mm;
+  padding: var(--margin);
+  margin: 0 auto 20px;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, .2);
+
+  display: grid;
+  grid-template-columns: repeat(var(--cols), var(--w));
+  grid-auto-rows: var(--h);
+  gap: var(--gap);
+  justify-content: center;
+  align-content: start;
+}
+
+.label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+}
+
+.label.cut { outline: 0.2mm dashed #999; }
+
+.label .logo {
+  flex: none;
+  width: var(--logo-size);
+  margin: var(--logo-mt) 0 var(--logo-mb);
+}
+
+.label.logo-top .logo { order: -1; }
+
+.label .text-box {
+  flex: 1;
+  min-height: 0;
+  width: 100%;
+  padding: 2mm;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* vertical-rl + rotate(180deg) = reads bottom to top */
+.label .text {
+  flex: none;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  white-space: nowrap;
+  line-height: 1;
+  font-family: var(--font);
+  font-weight: var(--weight);
+  font-size: var(--font-size);
+  color: var(--color);
+  text-shadow: var(--shadow);
+}
+
+@page { size: A4 portrait; margin: 0; }
+
+@media print {
+  * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body { background: none; }
+  .app { display: block; }
+  .panel { display: none; }
+  .preview { padding: 0; }
+  .sheet { margin: 0; box-shadow: none; break-after: page; }
+  .sheet:last-child { break-after: auto; }
+}

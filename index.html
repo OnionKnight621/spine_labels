@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Spine Labels — етикетки для корінців папок</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=PT+Serif:wght@400;700&display=swap">
+  <link rel="stylesheet" href="style.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+<div class="app">
+  <aside class="panel">
+    <h1>Spine Labels</h1>
+    <h2>Назви (по одній на рядок)</h2>
+    <textarea data-key="names"></textarea>
+
+    <h2>Розмір етикетки, мм</h2>
+    <label>Ширина <input type="number" data-key="width" min="5" step="1"></label>
+    <label>Висота <input type="number" data-key="height" min="5" step="1"></label>
+    <div class="row">
+      <button type="button" data-preset="50x190">50×190</button>
+      <button type="button" data-preset="75x190">75×190</button>
+    </div>
+
+    <h2>Шрифт</h2>
+    <label>Гарнітура
+      <select data-key="font">
+        <option value="Georgia">Georgia</option>
+        <option value="Cambria">Cambria</option>
+        <option value="PT Serif">PT Serif</option>
+      </select>
+    </label>
+    <label>Жирність
+      <select data-key="weight">
+        <option value="400">Звичайний</option>
+        <option value="700">Жирний</option>
+      </select>
+    </label>
+    <label>Авто-розмір під висоту <input type="checkbox" data-key="autoFit"></label>
+    <label>Макс. розмір (авто), pt <input type="number" data-key="fontMax" min="4" step="1"></label>
+    <label>Розмір, pt <input type="number" data-key="fontSize" min="4" step="1"></label>
+
+    <h2>Колір і тінь</h2>
+    <label>Колір тексту <input type="color" data-key="color"></label>
+    <label>Колір тіні <input type="color" data-key="shadowColor"></label>
+    <label>Тінь X (уздовж тексту), мм <input type="number" data-key="shadowX" step="0.1"></label>
+    <label>Тінь Y (під літерами), мм <input type="number" data-key="shadowY" step="0.1"></label>
+
+    <h2>Лого</h2>
+    <label>Показувати <input type="checkbox" data-key="logoOn"></label>
+    <input type="file" id="logoFile" accept="image/png,image/svg+xml">
+    <label>Позиція
+      <select data-key="logoPos">
+        <option value="bottom">Низ</option>
+        <option value="top">Верх</option>
+      </select>
+    </label>
+    <label>Розмір, % ширини <input type="number" data-key="logoSize" min="5" max="100" step="1"></label>
+    <label>Відступ зверху, мм <input type="number" data-key="logoMarginTop" min="0" step="0.5"></label>
+    <label>Відступ знизу, мм <input type="number" data-key="logoMarginBottom" min="0" step="0.5"></label>
+
+    <h2>Сторінка A4</h2>
+    <label>Поля, мм <input type="number" data-key="margin" min="0" step="1"></label>
+    <label>Проміжок, мм <input type="number" data-key="gap" min="0" step="0.5"></label>
+    <label>Лінії для різання <input type="checkbox" data-key="cutLines"></label>
+
+    <p id="info" class="info"></p>
+    <button type="button" class="print-btn" id="printBtn">Друк</button>
+    <p class="info">У діалозі друку можна вибрати «Зберегти як PDF». Масштаб — 100%, без полів.</p>
+  </aside>
+
+  <main class="preview" id="preview"></main>
+</div>
+</body>
+</html>
